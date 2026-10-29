@@ -31,7 +31,7 @@ export default async function PracticePage({ searchParams }: { searchParams: { d
   const courseMap = Object.fromEntries(courses.map(c => [c.id, c]))
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a]">
+    <div className="min-h-screen bg-page">
       <Navbar user={session} />
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="flex items-center gap-3 mb-8">
@@ -39,14 +39,14 @@ export default async function PracticePage({ searchParams }: { searchParams: { d
             <Target className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">Amaliyot Masalalari</h1>
+            <h1 className="text-2xl font-bold text-fg">Amaliyot Masalalari</h1>
             <p className="text-gray-400 text-sm">LeetCode uslubidagi masalalar — online compiler bilan</p>
           </div>
         </div>
 
         <div className="grid grid-cols-4 gap-3 mb-6">
           {[
-            { label: 'Hammasi', count: counts.all, color: 'text-white', href: '/practice', key: '' },
+            { label: 'Hammasi', count: counts.all, color: 'text-fg', href: '/practice', key: '' },
             { label: 'Oson', count: counts.easy, color: 'text-green-400', href: '/practice?difficulty=easy', key: 'easy' },
             { label: "O'rta", count: counts.medium, color: 'text-yellow-400', href: '/practice?difficulty=medium', key: 'medium' },
             { label: 'Qiyin', count: counts.hard, color: 'text-red-400', href: '/practice?difficulty=hard', key: 'hard' },
@@ -95,7 +95,7 @@ export default async function PracticePage({ searchParams }: { searchParams: { d
                   className="grid grid-cols-12 items-center px-5 py-4 border-b border-gray-800 last:border-0 hover:bg-gray-800/50 transition-colors group">
                   <div className="col-span-1 text-gray-600 text-sm">{i + 1}</div>
                   <div className="col-span-6">
-                    <span className="text-sm font-medium text-white group-hover:text-blue-300 transition-colors">{p.title}</span>
+                    <span className="text-sm font-medium text-fg group-hover:text-blue-300 transition-colors">{p.title}</span>
                   </div>
                   <div className="col-span-3 text-sm text-gray-500">
                     {course ? `${course.icon} ${course.title}` : '—'}

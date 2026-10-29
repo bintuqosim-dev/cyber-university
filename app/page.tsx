@@ -11,7 +11,7 @@ export default async function Home() {
   const courses = (await db.getCourses()).sort((a, b) => a.order_num - b.order_num)
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a]">
+    <div className="min-h-screen bg-page">
       <Navbar user={session} />
 
       {/* Hero */}
@@ -23,7 +23,7 @@ export default async function Home() {
             <Zap className="w-4 h-4" />
             Online Compiler bilan o'rganing
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-5xl md:text-6xl font-bold text-fg mb-6 leading-tight">
             Cyber<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">University</span>
             <br />
             <span className="text-3xl md:text-4xl text-gray-300 font-semibold">Dasturlash & Kiberxavfsizlik</span>
@@ -45,7 +45,7 @@ export default async function Home() {
                   Bepul ro'yxatdan o'tish <ChevronRight className="w-5 h-5" />
                 </Link>
                 <Link href="/login"
-                  className="border border-gray-700 hover:border-gray-500 text-gray-300 hover:text-white px-8 py-3.5 rounded-xl font-semibold transition-all">
+                  className="border border-gray-700 hover:border-gray-500 text-gray-300 hover:text-fg px-8 py-3.5 rounded-xl font-semibold transition-all">
                   Kirish
                 </Link>
               </>
@@ -64,7 +64,7 @@ export default async function Home() {
           ].map((s, i) => (
             <div key={i} className="flex flex-col items-center gap-2">
               <div className="text-blue-400">{s.icon}</div>
-              <div className="text-3xl font-bold text-white">{s.val}</div>
+              <div className="text-3xl font-bold text-fg">{s.val}</div>
               <div className="text-gray-400 text-sm">{s.label}</div>
             </div>
           ))}
@@ -75,7 +75,7 @@ export default async function Home() {
       <section id="courses" className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-3">Fanlar</h2>
+            <h2 className="text-3xl font-bold text-fg mb-3">Fanlar</h2>
             <p className="text-gray-400">Har bir fan uchun nazariy ma'lumot, kod misollari va amaliy masalalar</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -85,7 +85,7 @@ export default async function Home() {
                 <div className={`w-14 h-14 bg-gradient-to-br ${course.color} rounded-xl flex items-center justify-center text-2xl mb-4`}>
                   {course.icon}
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">{course.title}</h3>
+                <h3 className="text-lg font-bold text-fg mb-2 group-hover:text-blue-300 transition-colors">{course.title}</h3>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">{course.description}</p>
                 <div className="flex items-center gap-1 text-blue-400 text-sm font-medium">
                   O'rganish <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -100,7 +100,7 @@ export default async function Home() {
         <section className="py-20 px-4">
           <div className="max-w-3xl mx-auto text-center bg-gradient-to-br from-blue-900/40 to-purple-900/40 border border-blue-800/50 rounded-3xl p-12">
             <Users className="w-12 h-12 text-blue-400 mx-auto mb-4" />
-            <h2 className="text-3xl font-bold text-white mb-4">Bugun boshlang!</h2>
+            <h2 className="text-3xl font-bold text-fg mb-4">Bugun boshlang!</h2>
             <p className="text-gray-400 mb-8">O'qituvchi yoki talaba sifatida ro'yxatdan o'ting va o'rganishni boshlang</p>
             <Link href="/register"
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-xl font-semibold inline-flex items-center gap-2 transition-all">

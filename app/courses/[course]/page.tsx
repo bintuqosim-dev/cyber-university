@@ -29,7 +29,7 @@ export default async function CoursePage({ params }: { params: { course: string 
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a]">
+    <div className="min-h-screen bg-page">
       <Navbar user={session} />
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
@@ -45,7 +45,7 @@ export default async function CoursePage({ params }: { params: { course: string 
                 {course.icon}
               </div>
               <div className="flex-1">
-                <h1 className="text-3xl font-bold text-white mb-3">{course.title}</h1>
+                <h1 className="text-3xl font-bold text-fg mb-3">{course.title}</h1>
                 <p className="text-gray-400 leading-relaxed mb-4">{COURSE_INFO[params.course] || course.description}</p>
                 <div className="flex gap-4 text-sm text-gray-500">
                   <div className="flex items-center gap-1.5"><BookOpen className="w-4 h-4" />{topics.length} mavzu</div>
@@ -59,7 +59,7 @@ export default async function CoursePage({ params }: { params: { course: string 
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <h2 className="text-xl font-bold text-white mb-4">Mavzular</h2>
+            <h2 className="text-xl font-bold text-fg mb-4">Mavzular</h2>
             {topics.length === 0 ? (
               <div className="text-center py-16 bg-gray-900 border border-gray-800 rounded-2xl">
                 <BookOpen className="w-12 h-12 text-gray-700 mx-auto mb-3" />
@@ -77,7 +77,7 @@ export default async function CoursePage({ params }: { params: { course: string 
                       {idx + 1}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-white group-hover:text-blue-300 transition-colors">{topic.title}</p>
+                      <p className="font-medium text-fg group-hover:text-blue-300 transition-colors">{topic.title}</p>
                       <p className="text-xs text-gray-500 mt-0.5">Nazariya + Kod misoli + Online Compiler</p>
                     </div>
                     <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-blue-400 transition-all group-hover:translate-x-0.5" />
@@ -88,7 +88,7 @@ export default async function CoursePage({ params }: { params: { course: string 
           </div>
 
           <div>
-            <h2 className="text-xl font-bold text-white mb-4">Amaliyot</h2>
+            <h2 className="text-xl font-bold text-fg mb-4">Amaliyot</h2>
             {problems.length === 0 ? (
               <div className="text-center py-8 bg-gray-900 border border-gray-800 rounded-xl">
                 <p className="text-gray-500 text-sm">Masalalar yo'q</p>
@@ -98,7 +98,7 @@ export default async function CoursePage({ params }: { params: { course: string 
                 {problems.map(p => (
                   <Link key={p.id} href={`/practice/${p.id}`}
                     className="group flex items-center justify-between bg-gray-900 border border-gray-800 hover:border-gray-600 rounded-xl px-4 py-3 transition-all">
-                    <span className="text-sm text-white group-hover:text-green-300 transition-colors truncate mr-2">{p.title}</span>
+                    <span className="text-sm text-fg group-hover:text-green-300 transition-colors truncate mr-2">{p.title}</span>
                     <span className={`text-xs px-2 py-0.5 rounded-full border flex-shrink-0 ${diffStyle[p.difficulty]}`}>
                       {p.difficulty === 'easy' ? 'Oson' : p.difficulty === 'medium' ? "O'rta" : 'Qiyin'}
                     </span>

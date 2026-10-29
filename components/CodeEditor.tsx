@@ -1,10 +1,11 @@
 'use client'
 import { useState, useCallback } from 'react'
 import CodeMirror from '@uiw/react-codemirror'
-import { vscodeDark } from '@uiw/codemirror-theme-vscode'
+import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode'
 import { cpp } from '@codemirror/lang-cpp'
 import { python } from '@codemirror/lang-python'
 import { java } from '@codemirror/lang-java'
+import { useTheme } from './ThemeToggle'
 import { Play, RotateCcw, Loader2 } from 'lucide-react'
 
 type Language = 'cpp' | 'python' | 'kotlin'
@@ -40,6 +41,7 @@ export default function CodeEditor({
   readOnly = false,
   height = '320px',
 }: Props) {
+  const theme = useTheme()
   const [language, setLanguage] = useState<Language>(defaultLanguage)
   const [code, setCode] = useState(() => {
     if (defaultLanguage === 'cpp' && cppCode) return cppCode
@@ -97,7 +99,7 @@ export default function CodeEditor({
               className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
                 language === lang
                   ? 'bg-blue-600 text-white'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                  : 'text-gray-400 hover:text-fg hover:bg-gray-700'
               }`}
             >
               {LANG_CONFIG[lang].label}
@@ -105,18 +107,18 @@ export default function CodeEditor({
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={() => setShowStdin(!showStdin)} className="text-xs text-gray-400 hover:text-white px-2 py-1 rounded hover:bg-gray-700 transition-colors">
+          <button onClick={() => setShowStdin(!showStdin)} className="text-xs text-gray-400 hover:text-fg px-2 py-1 rounded hover:bg-gray-700 transition-colors">
             stdin
           </button>
           {!readOnly && (
-            <button onClick={reset} className="text-gray-400 hover:text-white">
+            <button onClick={reset} className="text-gray-400 hover:text-fg">
               <RotateCcw className="w-4 h-4" />
             </button>
           )}
           <button
             onClick={runCode}
             disabled={running}
-            className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 disabled:bg-green-900 text-white text-xs px-3 py-1.5 rounded-lg transition-colors font-medium"
+            className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white text-xs px-3 py-1.5 rounded-lg transition-colors font-medium"
           >
             {running ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5" />}
             {running ? 'Ishlamoqda...' : 'Ishga tushirish'}
@@ -127,7 +129,7 @@ export default function CodeEditor({
       {/* Stdin */}
       {showStdin && (
         <div className="border-b border-gray-700">
-          <div className="px-4 py-1 text-xs text-gray-500 bg-gray-850">Kirish (stdin):</div>
+          <div className="px-4 py-1 text-xs text-gray-500 bg-gray-900">Kirish (stdin):</div>
           <textarea
             value={stdin}
             onChange={e => setStdin(e.target.value)}
@@ -142,7 +144,7 @@ export default function CodeEditor({
       <CodeMirror
         value={code}
         onChange={setCode}
-        theme={vscodeDark}
+        theme={theme === 'light' ? vscodeLight : vscodeDark}
         extensions={[getExtension(language)]}
         readOnly={readOnly}
         style={{ height }}

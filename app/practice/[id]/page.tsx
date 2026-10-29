@@ -33,10 +33,10 @@ export default async function ProblemPage({ params }: { params: { id: string } }
   const defaultKt = problem.starter_kotlin || `fun main() {\n    // Kodingizni shu yerga yozing\n}`
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a]">
+    <div className="min-h-screen bg-page">
       <Navbar user={session} />
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <Link href="/practice" className="inline-flex items-center gap-1.5 text-gray-400 hover:text-white text-sm mb-4 transition-colors">
+        <Link href="/practice" className="inline-flex items-center gap-1.5 text-gray-400 hover:text-fg text-sm mb-4 transition-colors">
           <ChevronLeft className="w-4 h-4" /> Masalalarga qaytish
         </Link>
 
@@ -45,7 +45,7 @@ export default async function ProblemPage({ params }: { params: { id: string } }
           <div className="space-y-4">
             <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
               <div className="flex items-start justify-between gap-3 mb-4">
-                <h1 className="text-xl font-bold text-white leading-tight">{problem.title}</h1>
+                <h1 className="text-xl font-bold text-fg leading-tight">{problem.title}</h1>
                 <span className={`text-xs px-3 py-1 rounded-full border font-medium flex-shrink-0 ${diffStyle[problem.difficulty]}`}>
                   {diffLabel[problem.difficulty]}
                 </span>
@@ -54,10 +54,10 @@ export default async function ProblemPage({ params }: { params: { id: string } }
 
               {examples.length > 0 && (
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-white text-sm">Misollar:</h3>
+                  <h3 className="font-semibold text-fg text-sm">Misollar:</h3>
                   {examples.map((ex: any, i: number) => (
                     <div key={i} className="bg-gray-800 rounded-xl p-4 font-mono text-sm">
-                      <div><span className="text-gray-500">Kirish: </span><span className="text-white">{ex.input}</span></div>
+                      <div><span className="text-gray-500">Kirish: </span><span className="text-fg">{ex.input}</span></div>
                       <div><span className="text-gray-500">Chiqish: </span><span className="text-green-400">{ex.output}</span></div>
                       {ex.explanation && <div className="text-gray-500 text-xs mt-2 pt-2 border-t border-gray-700">💡 {ex.explanation}</div>}
                     </div>
@@ -67,7 +67,7 @@ export default async function ProblemPage({ params }: { params: { id: string } }
 
               {problem.constraints && (
                 <div className="mt-4">
-                  <h3 className="font-semibold text-white text-sm mb-2">Cheklovlar:</h3>
+                  <h3 className="font-semibold text-fg text-sm mb-2">Cheklovlar:</h3>
                   <div className="bg-gray-800 rounded-xl p-4">
                     {problem.constraints.split('\n').map((c: string, i: number) => (
                       <p key={i} className="text-sm text-gray-400 font-mono">{c}</p>
@@ -92,7 +92,7 @@ export default async function ProblemPage({ params }: { params: { id: string } }
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Target className="w-5 h-5 text-green-400" />
-              <h2 className="font-semibold text-white">Yechim yozing</h2>
+              <h2 className="font-semibold text-fg">Yechim yozing</h2>
               <span className="text-xs bg-green-900/30 text-green-400 border border-green-800/50 px-2 py-0.5 rounded-full">Online Compiler</span>
             </div>
             <CodeEditor cppCode={defaultCpp} pythonCode={defaultPy} kotlinCode={defaultKt} defaultLanguage="python" height="500px" />
@@ -100,7 +100,7 @@ export default async function ProblemPage({ params }: { params: { id: string } }
               <p className="text-xs text-gray-500 mb-2">Qanday ishlaydi:</p>
               <ul className="text-xs text-gray-400 space-y-1">
                 <li>• C++, Python yoki Kotlin tilini tanlang</li>
-                <li>• <strong className="text-white">Ishga tushirish</strong> tugmasini bosing</li>
+                <li>• <strong className="text-fg">Ishga tushirish</strong> tugmasini bosing</li>
                 <li>• stdin orqali test kirishlarini bering</li>
                 <li>• Piston API orqali haqiqiy serverda ishlaydi</li>
               </ul>

@@ -15,11 +15,11 @@ export default function QuizSection({ tests }: { tests: Test[] }) {
   return (
     <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+        <h2 className="text-lg font-semibold text-fg flex items-center gap-2">
           <HelpCircle className="w-5 h-5 text-purple-400" /> Test savollari
         </h2>
         {submitted && (
-          <button onClick={reset} className="flex items-center gap-1.5 text-gray-400 hover:text-white text-sm transition-colors">
+          <button onClick={reset} className="flex items-center gap-1.5 text-gray-400 hover:text-fg text-sm transition-colors">
             <RotateCcw className="w-4 h-4" /> Qayta urinish
           </button>
         )}
@@ -31,7 +31,7 @@ export default function QuizSection({ tests }: { tests: Test[] }) {
             {score}/{tests.length}
           </div>
           <div>
-            <p className="font-semibold text-white">
+            <p className="font-semibold text-fg">
               {score === tests.length ? 'Ajoyib! Hammasi to\'g\'ri!' : `${tests.length - score} ta xato`}
             </p>
             <p className="text-sm text-gray-400">
@@ -50,7 +50,7 @@ export default function QuizSection({ tests }: { tests: Test[] }) {
 
           return (
             <div key={test.id}>
-              <p className="font-medium text-white mb-3">
+              <p className="font-medium text-fg mb-3">
                 <span className="text-gray-500 mr-2">{qi + 1}.</span>
                 {test.question}
               </p>
@@ -79,8 +79,8 @@ export default function QuizSection({ tests }: { tests: Test[] }) {
                           : isSelected ? 'border-blue-500 bg-blue-500'
                           : 'border-gray-600'
                       }`}>
-                        {isCorrectOpt && <Check className="w-3 h-3 text-white" />}
-                        {isWrongOpt && <X className="w-3 h-3 text-white" />}
+                        {isCorrectOpt && <Check className="w-3 h-3 text-fg" />}
+                        {isWrongOpt && <X className="w-3 h-3 text-fg" />}
                         {!submitted && isSelected && <div className="w-2 h-2 bg-white rounded-full" />}
                       </div>
                       {opt}

@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import ThemeToggle from '@/components/ThemeToggle'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { BookOpen, Mail, Lock, Loader2, Eye, EyeOff } from 'lucide-react'
@@ -28,16 +29,17 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-page flex items-center justify-center px-4 relative">
+      <ThemeToggle className="absolute top-4 right-4" />
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 justify-center">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
               <BookOpen className="w-5 h-5 text-white" />
             </div>
-            <span className="font-bold text-white text-xl">Cyber<span className="text-blue-400">Uni</span></span>
+            <span className="font-bold text-fg text-xl">Cyber<span className="text-blue-400">Uni</span></span>
           </Link>
-          <h1 className="text-2xl font-bold text-white mt-6 mb-2">Tizimga kirish</h1>
+          <h1 className="text-2xl font-bold text-fg mt-6 mb-2">Tizimga kirish</h1>
           <p className="text-gray-400 text-sm">Hisobingizga kiring</p>
         </div>
 
@@ -66,7 +68,7 @@ export default function LoginPage() {
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input type="email" required value={form.email}
                 onChange={e => setForm({ ...form, email: e.target.value })}
-                className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg pl-10 pr-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                className="w-full bg-gray-800 border border-gray-700 text-fg rounded-lg pl-10 pr-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors"
                 placeholder="email@example.com" />
             </div>
           </div>
@@ -77,7 +79,7 @@ export default function LoginPage() {
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input type={showPass ? 'text' : 'password'} required value={form.password}
                 onChange={e => setForm({ ...form, password: e.target.value })}
-                className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg pl-10 pr-10 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                className="w-full bg-gray-800 border border-gray-700 text-fg rounded-lg pl-10 pr-10 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors"
                 placeholder="Parolni kiriting" />
               <button type="button" onClick={() => setShowPass(!showPass)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300">
@@ -87,7 +89,7 @@ export default function LoginPage() {
           </div>
 
           <button type="submit" disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-900 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors">
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors">
             {loading && <Loader2 className="w-4 h-4 animate-spin" />}
             {loading ? 'Kirilmoqda...' : 'Kirish'}
           </button>
