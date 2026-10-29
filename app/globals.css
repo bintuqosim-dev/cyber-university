@@ -56,3 +56,13 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* ---- CyberEdu: yangi renderMarkdown uchun qo'shimcha uslublar (app/globals.css oxiriga qo'shing) ---- */
+.prose-cyber figure { @apply my-6 mx-auto text-center; }
+.prose-cyber figure img { @apply mx-auto max-w-full h-auto rounded-xl border border-gray-700 bg-white; }
+.prose-cyber figcaption { @apply mt-2 text-sm text-gray-400 italic; }
+.prose-cyber blockquote { @apply border-l-4 border-blue-500 pl-4 my-4 text-gray-400 italic; }
+.prose-cyber a { @apply text-blue-400 underline hover:text-blue-300; }
+.prose-cyber .table-wrap { @apply overflow-x-auto mb-4; }
+.prose-cyber th { @apply font-semibold; }
+.prose-cyber ol { @apply list-decimal list-inside text-gray-300 mb-3 space-y-1; }
