@@ -5,29 +5,8 @@ import { getSession } from '@/lib/auth'
 import Navbar from '@/components/Navbar'
 import CodeEditor from '@/components/CodeEditor'
 import QuizSection from '@/components/QuizSection'
+import { renderMarkdown } from '@/lib/markdown'
 import { ChevronRight, ChevronLeft, BookOpen, Code2, HelpCircle } from 'lucide-react'
-
-function renderMarkdown(text: string): string {
-  // code blocks first
-  let html = text.replace(/```[\w]*\n([\s\S]*?)```/gm, '<pre><code>$1</code></pre>')
-  html = html
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/`([^`\n]+)`/g, '<code>$1</code>')
-    .replace(/^\| (.+) \|$/gm, (_: string, row: string) => {
-      const cells = row.split(' | ').map((c: string) => c.trim())
-      if (cells.every((c: string) => /^-+$/.test(c))) return ''
-      return `<tr>${cells.map((c: string) => `<td>${c}</td>`).join('')}</tr>`
-    })
-    .replace(/^- (.+)$/gm, '<li>$1</li>')
-    .replace(/\n\n/g, '</p><p>')
-  // wrap tables
-  html = html.replace(/(<tr>[\s\S]*?<\/tr>)/g, (m) => `<table>${m}</table>`)
-  // wrap lists
-  html = html.replace(/(<li>[\s\S]*?<\/li>)/g, (m) => `<ul>${m}</ul>`)
-  return html
-}
 
 export default async function TopicPage({ params }: { params: { course: string; topic: string } }) {
   const session = await getSession()
