@@ -232,3 +232,16 @@ html[data-theme='light'] .prose-cyber figure img { border-color: rgb(var(--c-gra
 html[data-theme='light'] ::selection { background: rgb(37 99 235 / .2); }
 .gradient-text { -webkit-box-decoration-break: clone; }
 .theme-fade, .theme-fade * { transition: background-color .2s ease, border-color .2s ease, color .2s ease !important; }
+
+/* ---- Mini-stsenariy (bosilganda javob ochiladigan blok) ---- */
+.prose-cyber .scenario { @apply my-6 rounded-xl border border-amber-500/50 overflow-hidden; background: rgb(var(--c-gray-900)); }
+.prose-cyber .scenario-head { @apply px-4 py-2 text-sm font-semibold; background: rgb(245 158 11 / .15); color: rgb(var(--c-yellow-300)); }
+.prose-cyber .scenario-body { @apply px-4 pt-3 pb-1; }
+.prose-cyber .scenario-body p { @apply my-2; }
+.prose-cyber .scenario-body ul { @apply my-2; }
+.prose-cyber .scenario-answer { @apply mx-4 mb-4 mt-2; }
+.prose-cyber .scenario-answer summary { @apply inline-block cursor-pointer select-none rounded-lg px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-colors; list-style: none; }
+.prose-cyber .scenario-answer summary::-webkit-details-marker { display: none; }
+.prose-cyber .scenario-answer[open] summary, .prose-cyber .scenario-answer[open] summary:hover { background: transparent; border: 1px solid rgb(var(--c-fg) / .4); color: rgb(var(--c-fg)); }
+.prose-cyber .scenario-answer-body { @apply mt-3 rounded-lg border-l-4 border-green-500 px-4 py-2; background: rgb(34 197 94 / .10); }
+.prose-cyber .scenario-answer-body p { @apply my-1; }

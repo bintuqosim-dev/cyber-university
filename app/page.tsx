@@ -58,7 +58,7 @@ export default async function Home() {
       <section className="py-12 border-y border-gray-800">
         <div className="max-w-5xl mx-auto px-4 grid grid-cols-3 gap-8 text-center">
           {[
-            { icon: <BookOpen className="w-6 h-6" />, val: '5', label: 'Fan' },
+            { icon: <BookOpen className="w-6 h-6" />, val: String(courses.length), label: 'Fan' },
             { icon: <Code2 className="w-6 h-6" />, val: '3', label: 'Dasturlash tili' },
             { icon: <Trophy className="w-6 h-6" />, val: '50+', label: 'Amaliy masala' },
           ].map((s, i) => (

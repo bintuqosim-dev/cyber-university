@@ -1,7 +1,7 @@
 // CyberEdu — kichik, xavfsiz Markdown -> HTML o'giruvchi.
 // Qo'llab-quvvatlanadi: ## ### sarlavhalar, ``` kod bloklari (HTML escape bilan),
 // jadval (| a | b | , | --- | ajratgichi bo'lsa birinchi qator sarlavha), - ro'yxat, 1. ro'yxat,
-// > iqtibos, ![izoh](/diagrams/x.png) rasm (izoh ostida), **qalin**, `kod`, [matn](https://...).
+// > iqtibos, :::scenario Sarlavha ... >>> javob ... ::: (bosilganda javob ochiladigan mini-stsenariy), ![izoh](/diagrams/x.png) rasm (izoh ostida), **qalin**, `kod`, [matn](https://...).
 
 function esc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -37,6 +37,26 @@ export function renderMarkdown(text: string): string {
       while (i < lines.length && !/^```/.test(lines[i])) buf.push(lines[i++])
       i++
       out.push(`<pre><code>${esc(buf.join('\n'))}</code></pre>`)
+      continue
+    }
+
+    let sm: RegExpExecArray | null
+    if ((sm = /^:::scenario\s*(.*)$/.exec(L))) {
+      const qBuf: string[] = []
+      const aBuf: string[] = []
+      let inAnswer = false
+      i++
+      while (i < lines.length && !/^:::\s*$/.test(lines[i])) {
+        if (/^>>>\s*$/.test(lines[i])) inAnswer = true
+        else (inAnswer ? aBuf : qBuf).push(lines[i])
+        i++
+      }
+      i++ // yopuvchi :::
+      out.push(
+        `<div class="scenario"><div class="scenario-head">Mini-stsenariy${sm[1] ? ' · ' + inline(sm[1]) : ''}</div>` +
+        `<div class="scenario-body">${renderMarkdown(qBuf.join('\n'))}</div>` +
+        `<details class="scenario-answer"><summary>Javobni ko'rish</summary><div class="scenario-answer-body">${renderMarkdown(aBuf.join('\n'))}</div></details></div>`
+      )
       continue
     }
 
@@ -87,7 +107,7 @@ export function renderMarkdown(text: string): string {
     }
 
     const buf: string[] = []
-    while (i < lines.length && !/^\s*$/.test(lines[i]) && !/^(#{1,3} |\||- |\d+\. |> |```|!\[)/.test(lines[i])) buf.push(lines[i++])
+    while (i < lines.length && !/^\s*$/.test(lines[i]) && !/^(#{1,3} |\||- |\d+\. |> |```|:::|!\[)/.test(lines[i])) buf.push(lines[i++])
     if (buf.length === 0) { buf.push(lines[i++]) }
     out.push(`<p>${inline(buf.join(' '))}</p>`)
   }
