@@ -1,7 +1,7 @@
 // CyberEdu — kichik, xavfsiz Markdown -> HTML o'giruvchi.
 // Qo'llab-quvvatlanadi: ## ### sarlavhalar, ``` kod bloklari (HTML escape bilan),
 // jadval (| a | b | , | --- | ajratgichi bo'lsa birinchi qator sarlavha), - ro'yxat, 1. ro'yxat,
-// > iqtibos, :::scenario Sarlavha ... >>> javob ... ::: (bosilganda javob ochiladigan mini-stsenariy), ![izoh](/diagrams/x.png) rasm (izoh ostida), **qalin**, `kod`, [matn](https://...).
+// > iqtibos, ::viz nom (interaktiv vizualizatsiya joyi), :::code Sarlavha + ```cpp/```python/```kotlin bloklari + >>> natija + ::: (tilni yorliqdan tanlanadigan kod bloki), :::scenario Sarlavha ... >>> javob ... ::: (bosilganda javob ochiladigan mini-stsenariy), ![izoh](/diagrams/x.png) rasm (izoh ostida), **qalin**, `kod`, [matn](https://...).
 
 function esc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -37,6 +37,45 @@ export function renderMarkdown(text: string): string {
       while (i < lines.length && !/^```/.test(lines[i])) buf.push(lines[i++])
       i++
       out.push(`<pre><code>${esc(buf.join('\n'))}</code></pre>`)
+      continue
+    }
+
+    let vm: RegExpExecArray | null
+    if ((vm = /^::viz\s+([a-z0-9_-]+)\s*$/.exec(L))) {
+      out.push(`<div class="viz-mount" data-viz="${esc(vm[1])}"><div class="viz-fallback">Interaktiv vizualizatsiya yuklanmoqda…</div></div>`)
+      i++; continue
+    }
+
+    let cm: RegExpExecArray | null
+    if ((cm = /^:::code\s*(.*)$/.exec(L))) {
+      const panels: { lang: string; code: string }[] = []
+      const outBuf: string[] = []
+      let inOut = false
+      i++
+      while (i < lines.length && !/^:::\s*$/.test(lines[i])) {
+        const fm = inOut ? null : /^```(\w*)\s*$/.exec(lines[i])
+        if (fm) {
+          const buf: string[] = []
+          i++
+          while (i < lines.length && !/^```\s*$/.test(lines[i])) buf.push(lines[i++])
+          i++
+          panels.push({ lang: fm[1], code: buf.join('\n') })
+          continue
+        }
+        if (/^>>>\s*$/.test(lines[i])) inOut = true
+        else if (inOut) outBuf.push(lines[i])
+        i++
+      }
+      i++ // yopuvchi :::
+      const names: Record<string, string> = { cpp: 'C++', python: 'Python', kotlin: 'Kotlin', java: 'Java', js: 'JavaScript' }
+      const id = `ct${out.length}`
+      const radios = panels.map((_p, k) => `<input type="radio" name="${id}" id="${id}-${k}"${k === 0 ? ' checked' : ''} />`).join('')
+      const labels = panels.map((p, k) => `<label for="${id}-${k}">${esc(names[p.lang] || p.lang || 'Kod')}</label>`).join('')
+      const pres = panels.map(p => `<pre><code>${esc(p.code)}</code></pre>`).join('')
+      const result = outBuf.length
+        ? `<div class="ct-out"><div class="ct-out-label">Natija</div><pre><code>${esc(outBuf.join('\n').replace(/\s+$/, ''))}</code></pre></div>`
+        : ''
+      out.push(`<div class="codetabs">${radios}<div class="ct-head"><span class="ct-title">${inline(cm[1])}</span><div class="ct-labels">${labels}</div></div><div class="ct-panels">${pres}</div>${result}</div>`)
       continue
     }
 
@@ -107,7 +146,7 @@ export function renderMarkdown(text: string): string {
     }
 
     const buf: string[] = []
-    while (i < lines.length && !/^\s*$/.test(lines[i]) && !/^(#{1,3} |\||- |\d+\. |> |```|:::|!\[)/.test(lines[i])) buf.push(lines[i++])
+    while (i < lines.length && !/^\s*$/.test(lines[i]) && !/^(#{1,3} |\||- |\d+\. |> |```|::|!\[)/.test(lines[i])) buf.push(lines[i++])
     if (buf.length === 0) { buf.push(lines[i++]) }
     out.push(`<p>${inline(buf.join(' '))}</p>`)
   }

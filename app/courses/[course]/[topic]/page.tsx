@@ -5,6 +5,7 @@ import { getSession } from '@/lib/auth'
 import Navbar from '@/components/Navbar'
 import CodeEditor from '@/components/CodeEditor'
 import QuizSection from '@/components/QuizSection'
+import VizRoot from '@/components/VizRoot'
 import { renderMarkdown } from '@/lib/markdown'
 import { ChevronRight, ChevronLeft, BookOpen, Code2, HelpCircle } from 'lucide-react'
 
@@ -75,6 +76,7 @@ export default async function TopicPage({ params }: { params: { course: string; 
                 <BookOpen className="w-5 h-5 text-blue-400" /> Nazariya
               </h2>
               <div className="prose-cyber" dangerouslySetInnerHTML={{ __html: renderMarkdown(topic.content) }} />
+              <VizRoot />
             </div>
 
             {/* Code Editor */}

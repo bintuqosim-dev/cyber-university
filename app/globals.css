@@ -245,3 +245,50 @@ html[data-theme='light'] ::selection { background: rgb(37 99 235 / .2); }
 .prose-cyber .scenario-answer[open] summary, .prose-cyber .scenario-answer[open] summary:hover { background: transparent; border: 1px solid rgb(var(--c-fg) / .4); color: rgb(var(--c-fg)); }
 .prose-cyber .scenario-answer-body { @apply mt-3 rounded-lg border-l-4 border-green-500 px-4 py-2; background: rgb(34 197 94 / .10); }
 .prose-cyber .scenario-answer-body p { @apply my-1; }
+
+/* ── Tilni yorliqdan tanlanadigan kod bloki (:::code) ───────────────────── */
+.prose-cyber .codetabs { @apply mb-4 overflow-hidden rounded-lg border border-gray-700 bg-gray-900; }
+.prose-cyber .codetabs > input { position: absolute; opacity: 0; pointer-events: none; }
+.prose-cyber .ct-head { @apply flex flex-wrap items-center justify-between gap-2 border-b border-gray-700 bg-gray-800 px-3 py-2; }
+.prose-cyber .ct-title { @apply text-xs font-semibold text-gray-300; }
+.prose-cyber .ct-labels { @apply flex gap-1; }
+.prose-cyber .ct-labels label { @apply cursor-pointer select-none rounded-md px-3 py-1 text-xs font-semibold text-gray-300 transition-colors hover:bg-gray-700; }
+.prose-cyber .ct-panels > pre { display: none; @apply m-0 rounded-none border-0; }
+.prose-cyber .ct-out { @apply border-t border-gray-700 bg-gray-950; }
+.prose-cyber .ct-out-label { @apply px-4 pt-2 text-xs font-semibold uppercase tracking-wide text-green-400; }
+.prose-cyber .ct-out pre { @apply m-0 rounded-none border-0 bg-transparent pt-1; }
+.prose-cyber .codetabs > input:nth-of-type(1):checked ~ .ct-head label:nth-of-type(1) { @apply bg-blue-600 text-white; }
+.prose-cyber .codetabs > input:nth-of-type(1):checked ~ .ct-panels > pre:nth-of-type(1) { display: block; }
+.prose-cyber .codetabs > input:nth-of-type(2):checked ~ .ct-head label:nth-of-type(2) { @apply bg-blue-600 text-white; }
+.prose-cyber .codetabs > input:nth-of-type(2):checked ~ .ct-panels > pre:nth-of-type(2) { display: block; }
+.prose-cyber .codetabs > input:nth-of-type(3):checked ~ .ct-head label:nth-of-type(3) { @apply bg-blue-600 text-white; }
+.prose-cyber .codetabs > input:nth-of-type(3):checked ~ .ct-panels > pre:nth-of-type(3) { display: block; }
+.prose-cyber .codetabs > input:nth-of-type(4):checked ~ .ct-head label:nth-of-type(4) { @apply bg-blue-600 text-white; }
+.prose-cyber .codetabs > input:nth-of-type(4):checked ~ .ct-panels > pre:nth-of-type(4) { display: block; }
+
+/* ── Interaktiv vizualizatsiyalar (::viz) ───────────────────────────────── */
+.prose-cyber .viz-box { @apply mb-6 rounded-lg border border-gray-700 bg-gray-900 p-4; }
+.prose-cyber .viz-title { @apply mb-3 text-sm font-semibold text-fg; }
+.prose-cyber .viz-slider { @apply mb-2 flex items-center gap-3 text-sm text-fg; }
+.prose-cyber .viz-slider input { @apply flex-1; accent-color: #3b82f6; }
+.prose-cyber .viz-svg { @apply block w-full; }
+.prose-cyber .viz-rows { @apply mt-3 flex flex-col gap-1.5; }
+.prose-cyber .viz-row { @apply flex items-center gap-2 text-sm text-fg; }
+.prose-cyber .viz-dot { @apply inline-block h-3 w-3 shrink-0 rounded-full; }
+.prose-cyber .viz-name { @apply w-24 shrink-0 font-semibold; }
+.prose-cyber .viz-bar { @apply relative h-3 flex-1 overflow-hidden rounded bg-gray-700; }
+.prose-cyber .viz-bar > span { @apply absolute left-0 top-0 h-full rounded; }
+.prose-cyber .viz-val { @apply w-32 shrink-0 text-right font-mono text-xs; }
+.prose-cyber .viz-note { @apply mb-0 mt-3 text-xs text-gray-400; }
+.prose-cyber .viz-split { @apply flex flex-col gap-3 md:flex-row md:items-center; }
+.prose-cyber .viz-code { @apply m-0 list-none rounded-md border border-gray-700 bg-gray-950 p-2 font-mono text-sm md:w-48 md:shrink-0; }
+.prose-cyber .viz-code li { @apply m-0 flex gap-2 rounded px-2 py-1 text-gray-400; }
+.prose-cyber .viz-code li.on { @apply bg-blue-600 text-white; }
+.prose-cyber .viz-code li.done { @apply text-fg; }
+.prose-cyber .viz-code code { @apply bg-transparent p-0; color: inherit; }
+.prose-cyber .viz-ln { @apply w-4 select-none text-right opacity-60; }
+.prose-cyber .viz-step-note { @apply my-3 rounded-md border-l-4 border-amber-500 bg-gray-800 px-3 py-2 text-sm text-fg; }
+.prose-cyber .viz-btns { @apply flex flex-wrap gap-2; }
+.prose-cyber .viz-btns button { @apply rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40; }
+.prose-cyber .viz-btns button:last-child { @apply bg-transparent border border-gray-500 text-fg hover:bg-gray-800; }
+.prose-cyber .viz-fallback { @apply rounded-md border border-dashed border-gray-600 p-4 text-sm text-gray-400; }
