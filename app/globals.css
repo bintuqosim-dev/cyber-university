@@ -292,3 +292,24 @@ html[data-theme='light'] ::selection { background: rgb(37 99 235 / .2); }
 .prose-cyber .viz-btns button { @apply rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40; }
 .prose-cyber .viz-btns button:last-child { @apply bg-transparent border border-gray-500 text-fg hover:bg-gray-800; }
 .prose-cyber .viz-fallback { @apply rounded-md border border-dashed border-gray-600 p-4 text-sm text-gray-400; }
+
+/* ── Interaktiv kod oynasi (CodeFrame) ───────────────────────────────────── */
+.prose-cyber .cf-box { @apply mb-6 overflow-hidden rounded-lg border border-gray-700 bg-gray-900; }
+.prose-cyber .cf-head { @apply flex flex-wrap items-center justify-between gap-2 border-b border-gray-700 bg-gray-800 px-3 py-2; }
+.prose-cyber .cf-tabs { @apply flex gap-1; }
+.prose-cyber .cf-tabs button { @apply rounded-md px-3 py-1 text-xs font-semibold text-gray-300 transition-colors hover:bg-gray-700; }
+.prose-cyber .cf-tabs button.on { @apply bg-blue-600 text-white; }
+.prose-cyber .cf-actions { @apply flex items-center gap-1.5; }
+.prose-cyber .cf-title { @apply mr-2 hidden text-xs text-gray-400 md:inline; }
+.prose-cyber .cf-actions button { @apply inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-gray-300 transition-colors hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-40; }
+.prose-cyber .cf-actions button.cf-run { @apply bg-green-600 px-3 text-xs font-semibold text-white hover:bg-green-700; }
+.prose-cyber .cf-box .cm-editor { font-size: 0.85rem; }
+.prose-cyber .cf-out { @apply border-t border-gray-700 bg-gray-950; }
+.prose-cyber .cf-out-label { @apply flex min-h-0 items-center gap-2 px-4 pt-2 text-xs font-semibold uppercase tracking-wide text-gray-400; }
+.prose-cyber .cf-out-label .dot { @apply inline-block h-2 w-2 rounded-full; }
+.prose-cyber .cf-out-label .dot.ok { @apply bg-green-500; }
+.prose-cyber .cf-out-label .dot.err { @apply bg-red-500; }
+.prose-cyber .cf-out pre { @apply m-0 max-h-56 overflow-y-auto whitespace-pre-wrap rounded-none border-0 bg-transparent px-4 py-2 text-sm; }
+.prose-cyber .cf-out pre.muted { @apply opacity-60; }
+.prose-cyber .cf-hint { @apply px-4 py-2 text-sm text-gray-500; }
+.prose-cyber .cf-lang { @apply rounded-md bg-blue-600 px-3 py-1 text-xs font-semibold text-white; }

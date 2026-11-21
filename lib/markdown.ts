@@ -21,6 +21,20 @@ function inline(raw: string): string {
   return s
 }
 
+
+// Kod bloki qaysi tilda ekanini aniqlaydi (bo'sh teg bo'lsa — mazmunidan taxmin qiladi).
+// null qaytsa — bu dastur kodi emas (masalan, natija matni) va oddiy <pre> bo'lib qoladi.
+function guessLang(tag: string, code: string): 'cpp' | 'python' | 'kotlin' | null {
+  if (/^(cpp|c\+\+|cc|cxx|c)$/.test(tag)) return 'cpp'
+  if (/^(python|py|python3)$/.test(tag)) return 'python'
+  if (/^(kotlin|kt)$/.test(tag)) return 'kotlin'
+  if (tag) return null // text, json, bash va h.k.
+  if (/#include|\bcout\s*<<|\bcin\s*>>|\bstd::|\bnullptr\b|\bint\s*\*?\s*\w+\s*(=|\(|\[|;)|\bvoid\s+\w+\s*\(|\bfor\s*\(\s*(int|size_t|auto)\b|\bdelete(\[\])?\s+\w|\bnew\s+\w+/.test(code)) return 'cpp'
+  if (/^\s*(def\s+\w+\(|import\s+\w+|from\s+\w+\s+import|print\(|for\s+\w+\s+in\s)/m.test(code)) return 'python'
+  if (/\bfun\s+\w+\s*\(|\bval\s+\w+\s*[:=]|\bvar\s+\w+\s*[:=]/.test(code)) return 'kotlin'
+  return null
+}
+
 const isSep = (cells: string[]) => cells.every(c => /^:?-{2,}:?$/.test(c))
 
 export function renderMarkdown(text: string): string {
@@ -32,11 +46,22 @@ export function renderMarkdown(text: string): string {
     if (/^\s*$/.test(L)) { i++; continue }
 
     if (/^```/.test(L)) {
+      const tag = L.replace(/^```\s*/, '').trim().toLowerCase()
       const buf: string[] = []
       i++
       while (i < lines.length && !/^```/.test(lines[i])) buf.push(lines[i++])
       i++
-      out.push(`<pre><code>${esc(buf.join('\n'))}</code></pre>`)
+      const code = buf.join('\n')
+      const lang = guessLang(tag, code)
+      const pre = `<pre><code>${esc(code)}</code></pre>`
+      // Dasturlash tilidagi bloklar brauzerda rangli, tahrirlanadigan va ishga tushiriladigan CodeFrame'ga aylanadi.
+      // JS o'chiq bo'lsa yoki yuklanmaguncha oddiy <pre> ko'rinadi.
+      if (lang) {
+        const data = esc(JSON.stringify({ title: '', panels: [{ lang, code }], expected: '' }))
+        out.push(`<div class="codeframe-mount" data-codeframe="${data}">${pre}</div>`)
+      } else {
+        out.push(pre)
+      }
       continue
     }
 
@@ -75,7 +100,10 @@ export function renderMarkdown(text: string): string {
       const result = outBuf.length
         ? `<div class="ct-out"><div class="ct-out-label">Natija</div><pre><code>${esc(outBuf.join('\n').replace(/\s+$/, ''))}</code></pre></div>`
         : ''
-      out.push(`<div class="codetabs">${radios}<div class="ct-head"><span class="ct-title">${inline(cm[1])}</span><div class="ct-labels">${labels}</div></div><div class="ct-panels">${pres}</div>${result}</div>`)
+      const fallback = `<div class="codetabs">${radios}<div class="ct-head"><span class="ct-title">${inline(cm[1])}</span><div class="ct-labels">${labels}</div></div><div class="ct-panels">${pres}</div>${result}</div>`
+      const data = esc(JSON.stringify({ title: cm[1], panels, expected: outBuf.join('\n').replace(/\s+$/, '') }))
+      // Statik variant (JS o'chiq bo'lsa) ichida turadi; brauzerda CodeFrame uni almashtiradi.
+      out.push(`<div class="codeframe-mount" data-codeframe="${data}">${fallback}</div>`)
       continue
     }
 
